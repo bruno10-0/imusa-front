@@ -1,7 +1,8 @@
 import { NativeWindStyleSheet } from "nativewind";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Screen } from "react-native-screens";
+import { Provider } from 'react-redux';
+import 
 //Screens
 import Home from "./src/screens/Home";
 
@@ -14,13 +15,13 @@ const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
+    <Provider store={}>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-
-          Sta
-
-
+      <Stack.Screen name="Home" component={Home}/>
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
+F
