@@ -11,10 +11,10 @@ export default function Home() {
 
   return (
     <StyledView className="flex-1 justify-center items-center bg-blue-500">
-      <StyledText className="text-white text-lg">Home Screen</StyledText>
+      <StyledText className="text-white text-lg">Register Screen</StyledText>
       <Button
-        title="Go to register"
-        onPress={() => navigation.navigate('Register')}
+        title="Go to Home"
+        onPress={() => navigation.navigate('Home')}
       />
     </StyledView>
   );
