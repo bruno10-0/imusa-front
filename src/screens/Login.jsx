@@ -31,24 +31,30 @@ export default function Login() {
         entering={FadeInUp.delay(200).duration(1000)}
         className="h-full w-full absolute"
         source={{
-          uri: "https://i.pinimg.com/736x/ce/9d/89/ce9d892863cdef05531c21645f80551f.jpg",
+          uri: "https://cdn.leonardo.ai/users/153ea7d4-0771-43b9-b082-89b9688f8af5/generations/b3c25d1b-4741-4439-b898-71d5c43cfcd1/Illustrative_Albedo_En_la_imagen_proporcionada_reemplaza_todos_0.jpg",
         }}
       />
       <View className="h-full w-full flex justify-center items-center px-4">
-        <View className="h-auto w-full flex justify-center bg-black/5 p-2 py-10  backdrop-blur-lg rounded-2xl">
+        <View
+          className="h-auto w-full flex justify-center p-2 py-24 rounded-lg"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backdropFilter: "blur(0px)",
+          }}
+        >
           {/* Título */}
           <View className="flex items-center">
             <Animated.Text
               entering={FadeInUp.delay(200).springify()}
-              className="text-primary font-bold text-7xl uppercase"
+              className="text-white font-bold text-5xl mb-4"
             >
-              Data Pet
+              Bienvenido
             </Animated.Text>
             <Animated.Text
               entering={FadeInUp.delay(200).springify()}
-              className="text-white font-bold text-xl mb-5"
+              className="text-white font-bold text-xl mb-4"
             >
-              El mejor amigo de tu amigo
+              Inicia sesión para continuar
             </Animated.Text>
           </View>
 
@@ -65,14 +71,17 @@ export default function Login() {
               errors,
               touched,
             }) => (
-              <View className="flex items-center mx-4 space-y-4">
+              <View className="items-center p-4">
                 <Animated.View
                   entering={FadeInDown.delay(200).springify()}
-                  className="bg-white/25 p-4 rounded-2xl w-full"
+                  className="bg-white/30 p-4 rounded-lg w-full mb-4"
                 >
+                  <Text className="text-white font-bold text-lg mb-1">
+                    Correo electrónico*
+                  </Text>
                   <TextInput
-                    className="text-white font-bold text-lg"
-                    placeholder="Correo electrónico"
+                    className="text-white mb-2"
+                    placeholder="alguien@ejemplo.com"
                     placeholderTextColor="white"
                     onChangeText={handleChange("email")}
                     onBlur={handleBlur("email")}
@@ -80,16 +89,19 @@ export default function Login() {
                   />
                 </Animated.View>
                 {touched.email && errors.email && (
-                  <Text className="w-full text-lg text-red-500">
+                  <Text className="w-full text-lg text-error">
                     {errors.email}
                   </Text>
                 )}
                 <Animated.View
                   entering={FadeInDown.delay(400).springify()}
-                  className="bg-white/25 p-4 rounded-2xl w-full"
+                  className="bg-white/25 p-4 rounded-lg w-full my-4"
                 >
+                  <Text className="text-white font-bold text-lg mb-1">
+                    Contraseña*
+                  </Text>
                   <TextInput
-                    className="text-white font-bold text-lg"
+                    className="text-white mb-2"
                     placeholder="Contraseña"
                     placeholderTextColor="white"
                     secureTextEntry
@@ -99,7 +111,7 @@ export default function Login() {
                   />
                 </Animated.View>
                 {touched.password && errors.password && (
-                  <Text className="w-full text-lg text-red-500">
+                  <Text className="w-full text-lg text-error mb-4">
                     {errors.password}
                   </Text>
                 )}
@@ -107,26 +119,33 @@ export default function Login() {
                   entering={FadeInDown.delay(800).springify()}
                   className="w-full"
                 >
+                  <Animated.View
+                    entering={FadeInDown.delay(600).springify()}
+                    className="flex-row mt-4 mb-6"
+                  >
+                    <Text className="text-white">
+                      ¿Olvidaste tu contraseña?
+                    </Text>
+                    <TouchableOpacity onPress={() => navigation.push("Signup")}>
+                      <Text className="font-bold text-info border-info border-b">
+                        {" "}
+                        Recuperar contraseña
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
+
                   <TouchableOpacity
-                    className="w-full p-3 bg-primary rounded-2xl mb-2"
+                    className="w-full p-3 bg-primary rounded-lg mb-4"
                     onPress={formikSubmit}
                   >
-                    <Text className="text-center font-bold text-white">
+                    <Text className="text-center font-bold text-white ">
                       Iniciar Sesión
                     </Text>
                   </TouchableOpacity>
                 </Animated.View>
-                <Animated.View
-                  entering={FadeInDown.delay(600).springify()}
-                  className="flex-row"
-                >
-                  <Text className="text-white">¿Olvidaste tu contraseña?</Text>
-                  <TouchableOpacity onPress={() => navigation.push("Signup")}>
-                    <Text className="font-bold text-primary">
-                      {" "}
-                      Recuperar contraseña
-                    </Text>
-                  </TouchableOpacity>
+                <Animated.View className="w-full flex flex-col justify-center items-center gap-4">
+                  <Text className="text-white">¿No tienes una cuenta?</Text>
+                  <Text className="text-info">Registrarse</Text>
                 </Animated.View>
               </View>
             )}

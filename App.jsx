@@ -40,7 +40,7 @@ export default function App() {
       </Provider>
   );
 }
-
+ 
 const ProtectedRoutes = () => {
   return (
     <VerifyAccess>
