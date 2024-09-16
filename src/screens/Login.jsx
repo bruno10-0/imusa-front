@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import LoginValidation from "../schemas/LoginValidation";
 import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
+import logo from "../../assets/logo.png";
+
 export default function Login() {
   const navigation = useNavigation();
   // Función para manejar el envío del formulario
@@ -26,132 +28,124 @@ export default function Login() {
   };
 
   return (
-    <View className="h-full w-full justify-center items-center">
-      <Animated.Image
-        entering={FadeInUp.delay(200).duration(1000)}
-        className="h-full w-full absolute"
-        source={{
-          uri: "https://cdn.leonardo.ai/users/153ea7d4-0771-43b9-b082-89b9688f8af5/generations/b3c25d1b-4741-4439-b898-71d5c43cfcd1/Illustrative_Albedo_En_la_imagen_proporcionada_reemplaza_todos_0.jpg",
-        }}
-      />
-      <View className="h-full w-full flex justify-center items-center px-4">
-        <View
-          className="h-auto w-full flex justify-center p-2 py-24 rounded-lg"
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            backdropFilter: "blur(0px)",
-          }}
-        >
-          {/* Título */}
-          <View className="flex items-center">
-            <Animated.Text
-              entering={FadeInUp.delay(200).springify()}
-              className="text-white font-bold text-5xl mb-4"
-            >
-              Bienvenido
-            </Animated.Text>
-            <Animated.Text
-              entering={FadeInUp.delay(200).springify()}
-              className="text-white font-bold text-xl mb-4"
-            >
-              Inicia sesión para continuar
-            </Animated.Text>
+    <View className="w-full min-h-screen h-auto">
+      <LinearGradient
+        entering={FadeInDown.delay(1000).springify()}
+        colors={["#0C1D55", "#1E3A7D", "#4A6BBE"]} // Colores del gradiente
+        start={{ x: 0, y: 0 }} // Inicio en la esquina superior izquierda
+        end={{ x: 1, y: 1 }}
+        className="h-full w-full items-center justify-center p-10"
+      >
+        {/* Título */}
+        <View className="flex items-center w-full mb-10">
+          <View className="w-full h-auto mb-10">
+            <Image className="w-full h-40" source={logo} />
           </View>
-
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            validationSchema={LoginValidation}
-            onSubmit={handleSubmit}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit: formikSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <View className="items-center p-4">
-                <Animated.View
-                  entering={FadeInDown.delay(200).springify()}
-                  className="bg-white/30 p-4 rounded-lg w-full mb-4"
-                >
-                  <Text className="text-white font-bold text-lg mb-1">
-                    Correo electrónico*
-                  </Text>
-                  <TextInput
-                    className="text-white mb-2"
-                    placeholder="alguien@ejemplo.com"
-                    placeholderTextColor="white"
-                    onChangeText={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
-                  />
-                </Animated.View>
-                {touched.email && errors.email && (
-                  <Text className="w-full text-lg text-error">
-                    {errors.email}
-                  </Text>
-                )}
-                <Animated.View
-                  entering={FadeInDown.delay(400).springify()}
-                  className="bg-white/25 p-4 rounded-lg w-full my-4"
-                >
-                  <Text className="text-white font-bold text-lg mb-1">
-                    Contraseña*
-                  </Text>
-                  <TextInput
-                    className="text-white mb-2"
-                    placeholder="Contraseña"
-                    placeholderTextColor="white"
-                    secureTextEntry
-                    onChangeText={handleChange("password")}
-                    onBlur={handleBlur("password")}
-                    value={values.password}
-                  />
-                </Animated.View>
-                {touched.password && errors.password && (
-                  <Text className="w-full text-lg text-error mb-4">
-                    {errors.password}
-                  </Text>
-                )}
-                <Animated.View
-                  entering={FadeInDown.delay(800).springify()}
-                  className="w-full"
-                >
-                  <Animated.View
-                    entering={FadeInDown.delay(600).springify()}
-                    className="flex-row mt-4 mb-6"
-                  >
-                    <Text className="text-white">
-                      ¿Olvidaste tu contraseña?
-                    </Text>
-                    <TouchableOpacity onPress={() => navigation.push("Signup")}>
-                      <Text className="font-bold text-info border-info border-b">
-                        {" "}
-                        Recuperar contraseña
-                      </Text>
-                    </TouchableOpacity>
-                  </Animated.View>
-
-                  <TouchableOpacity
-                    className="w-full p-3 bg-primary rounded-lg mb-4"
-                    onPress={formikSubmit}
-                  >
-                    <Text className="text-center font-bold text-white ">
-                      Iniciar Sesión
-                    </Text>
-                  </TouchableOpacity>
-                </Animated.View>
-                <Animated.View className="w-full flex flex-col justify-center items-center gap-4">
-                  <Text className="text-white">¿No tienes una cuenta?</Text>
-                  <Text className="text-info">Registrarse</Text>
-                </Animated.View>
-              </View>
-            )}
-          </Formik>
+          <View className="flex flex-row justify-between w-full">
+            <TouchableOpacity onPress={() => navigation.push("Login")}>
+              <Text className="text-white font-bold text-lg border-b border-secondary/25 pb-2">
+                Iniciar Sesión
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.push("Register")}>
+              <Text className="text-white font-bold text-lg">Registrarse</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={LoginValidation}
+          onSubmit={handleSubmit}
+          className="w-full"
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit: formikSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <View className="items-center w-full">
+              <Animated.View
+                entering={FadeInDown.delay(200).springify()}
+                className="w-full mb-2 border-b border-secondary/25 pb-2"
+              >
+                <Text className="text-white mb-2 font-semibold">
+                  Tú Correo electrónico <Text className="text-error">*</Text>
+                </Text>
+                <TextInput
+                  className="text-white mb-2"
+                  placeholder="correo@dominio.com"
+                  placeholderTextColor="#D3D3D3"
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                />
+              </Animated.View>
+              {touched.email && errors.email && (
+                <Text className="w-full text-error mb-4">{errors.email}</Text>
+              )}
+              <Animated.View
+                entering={FadeInDown.delay(400).springify()}
+                className="w-full mb-2 border-b border-secondary/25 pb-2"
+              >
+                <Text className="text-white mb-2 font-semibold">
+                  Tú Cotraseña <Text className="text-error">*</Text>
+                </Text>
+                <TextInput
+                  className="text-white mb-2"
+                  placeholder="Contraseña"
+                  placeholderTextColor="#D3D3D3"
+                  secureTextEntry
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                />
+              </Animated.View>
+              {touched.password && errors.password && (
+                <Text className="w-full text-error mb-4">
+                  {errors.password}
+                </Text>
+              )}
+              <Animated.View
+                entering={FadeInDown.delay(800).springify()}
+                className="w-full"
+              >
+                <View
+                  entering={FadeInDown.delay(600).springify()}
+                  className="flex-row gap-2 my-5"
+                >
+                  <Text className="text-white">¿Olvidaste tu contraseña?</Text>
+                  <TouchableOpacity onPress={() => navigation.push("Signup")}>
+                    <Text className="font-bold text-info"> Recuperar</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  className="w-full p-3 bg-secondary rounded-full mb-4"
+                  onPress={formikSubmit}
+                >
+                  <Text className="text-center font-bold text-white ">
+                    Iniciar Sesión
+                  </Text>
+                </TouchableOpacity>
+              </Animated.View>
+
+              <Animated.View
+                entering={FadeInDown.delay(800).springify()}
+                className="w-full flex flex-row gap-2 items-center"
+              >
+                <Text className="text-white">¿No tienes una cuenta?</Text>
+                <TouchableOpacity onPress={() => navigation.push("Register")}>
+                  <Text className="font-bold text-info">Registrarme</Text>
+                </TouchableOpacity>
+              </Animated.View>
+            </View>
+          )}
+        </Formik>
+      </LinearGradient>
     </View>
   );
 }
