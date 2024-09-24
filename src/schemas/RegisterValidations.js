@@ -1,14 +1,26 @@
 import * as yup from "yup";
 
 export const step1 = yup.object().shape({
-  name: yup.string().required("El nombre es obligatorio"),
+  nombre: yup.string().required("El nombre es obligatorio"),
 });
 
+export const initialValuesRegister = {
+  correo: "",
+  apellido: "",
+  DNI: "",
+  contrasenia: "",
+  telefono: "",
+  confirmarContrasenia: "",
+};
+
 export const step2 = yup.object().shape({
-  lastname: yup.string().required("El apellido es obligatorio"),
-  birthDate: yup.string().required("La fecha de nacimiento es obligatoria"),
-  gender: yup.string().required("El sexo es obligatorio"),
-  dni: yup.string().required("El DNI es obligatorio"),
-  gender: yup.string().required("El sexo es obligatorio"),
-  phone: yup.string().required("El número de teléfono es obligatorio"),
+  correo: yup.string().required("El correo es obligatorio"),
+  apellido: yup.string().required("El apellido es obligatorio"),
+  DNI: yup.string().required("El DNI es obligatorio"),
+  contrasenia: yup.string().required("La contraseña es obligatoria"),
+  confirmarContrasenia: yup
+    .string()
+    .required("La confirmación de la contraseña es obligatoria")
+    .oneOf([yup.ref("contrasenia"), null], "Las contraseñas no coinciden"),
+  telefono: yup.string().required("El telefono es obligatorio"),
 });

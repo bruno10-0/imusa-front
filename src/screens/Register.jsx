@@ -47,7 +47,7 @@ export default function Register() {
         )}
         {/*Parte 1  */}
         {currentStep === 0 && <From1 />}
-        {/*Parte 1  */}
+        {/*Parte 2  */}
         {currentStep === 1 && <Form2 />}
       </LinearGradient>
     </View>

@@ -1,26 +1,26 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import React from "react"; // No necesitas importar Component si no lo estás utilizando
 import { Formik } from "formik";
-import { setData, setStep } from "../../redux/reducers/RegisterSlice"; // Esta importación está en el código pero no se usa aquí
+import { setName, setStep } from "../../redux/reducers/RegisterSlice"; // Esta importación está en el código pero no se usa aquí
 import { step1 } from "../../schemas/RegisterValidations";
-import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
+import Animated, { FadeInDown } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 export default function Form1() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = (values) => {
     dispatch(setStep(1));
-    setData(values);
+    dispatch(setName(values.nombre));
   };
 
   return (
     <View className="w-full h-auto">
       <Formik
         initialValues={{
-          name: useSelector((state) => state.register.data.name),
+          nombre: useSelector((state) => state.register.data.nombre),
         }}
         validationSchema={step1}
         onSubmit={handleSubmit}
@@ -42,17 +42,17 @@ export default function Form1() {
                 ¿Cómo es tu nombre?
               </Text>
               <TextInput
-                initialValues={values.name}
+                initialValues={values.nombre}
                 className="text-white mb-2"
                 placeholder="Ej. Jhon Doe"
                 placeholderTextColor="#D3D3D3"
-                onChangeText={handleChange("name")} // Cambiado de "email" a "name"
-                onBlur={handleBlur("name")} // Cambiado de "email" a "name"
-                value={values.name} // Cambiado de "email" a "name"
+                onChangeText={handleChange("nombre")}
+                onBlur={handleBlur("nombre")}
+                value={values.nombre} // Este está bien, no necesitas initialValues aquí
               />
             </Animated.View>
-            {touched.name && errors.name && (
-              <Text className="w-full text-error mb-4">{errors.name}</Text>
+            {touched.nombre && errors.nombre && (
+              <Text className="w-full text-error mb-4">{errors.nombre}</Text>
             )}
             <TouchableOpacity
               className="w-full p-3 bg-secondary rounded-full my-4"
