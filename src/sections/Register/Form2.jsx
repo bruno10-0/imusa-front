@@ -13,13 +13,15 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
 import { step2 } from "../../schemas/RegisterValidations";
 import { initialValuesRegister } from "../../schemas/RegisterValidations";
+import { setData } from "../../redux/reducers/RegisterSlice"; 
 export default function Form2() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const nombre = useSelector((state) => state.register.data.nombre);
-
+  const data = useSelector((state) => state.register.data);
   const handleSubmit = async (values) => {
-    // Aquí podrías despachar otra acción si es necesario
+    dispatch(setData(values));
+    
   };
 
   return (
@@ -121,8 +123,8 @@ export default function Form2() {
                     className="text-white mb-2"
                     placeholder="Ej. 123456789"
                     placeholderTextColor="#D3D3D3"
-                    onChangeText={handleChange("phone")}
-                    onBlur={handleBlur("phone")}
+                    onChangeText={handleChange("telefono")}
+                    onBlur={handleBlur("telefono")}
                     value={values.telefono}
                   />
                 </Animated.View>
@@ -168,7 +170,6 @@ export default function Form2() {
                       Contraseña <Text className="text-error">*</Text>
                     </Text>
                     <TextInput
-                      keyboardType="numeric"
                       className="text-white mb-2"
                       placeholder="Contraseña"
                       placeholderTextColor="#D3D3D3"
