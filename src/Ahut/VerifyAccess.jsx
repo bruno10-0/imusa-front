@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import LoadingSpinner from "../Loading/LoadingSpinner";
 
 const VerifyAccess = ({ children }) => {
   const navigation = useNavigation();
-  const isAuthenticated = true
-  // useSelector((state) => state.auth.isAuthenticated);  
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);  
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -13,13 +13,13 @@ const VerifyAccess = ({ children }) => {
     }
   }, [isAuthenticated, navigation]);
 
-  // Renderiza los hijos si está autenticado
-  if (!isAuthenticated) {
-    return <>{children}</>;
+  // Renderiza los hijos solo si está autenticado
+  if (isAuthenticated) {
+    return <>{children}</>; // Renderiza los componentes hijos si está autenticado
   }
 
   // Puedes devolver un componente de carga o vacío mientras se verifica la autenticación
-  return null;
+  return <LoadingSpinner message="Verificando autenticación..." />;
 };
 
 export default VerifyAccess;

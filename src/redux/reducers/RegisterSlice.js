@@ -2,16 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   step: 0,
-
-  data: {
-    nombre:"",
-    correo: "",
-    apellido: "",
-    DNI: "",
-    contrasenia: "",
-    telefono: "",
-    confirmarContrasenia: "",
-  },
+  nombre: "",
 };
 
 const authSlice = createSlice({
@@ -21,17 +12,18 @@ const authSlice = createSlice({
     setStep: (state, action) => {
       state.step = action.payload;
     },
-    setData: (state, action) => {
-      state.data = action.payload;
-    },
     setName: (state, action) => {
-      state.data.nombre = action.payload;
+      state.nombre = action.payload;
+    },
+    cleanValues: (state) => {
+      state.nombre = "";
+      state.step = 0;
     },
   },
 });
 
 // Exporta las acciones creadas
-export const { setStep, setData, setName } = authSlice.actions;
+export const { setStep, setName, cleanValues } = authSlice.actions;
 
 // Exporta el reducer
 export default authSlice.reducer;

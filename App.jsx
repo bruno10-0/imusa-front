@@ -13,6 +13,9 @@ import Login from "./src/screens/Login.jsx";
 // Auth
 import VerifyAccess from "./src/Ahut/VerifyAccess.jsx";
 
+// Toast
+import Toast from 'react-native-toast-message'; // Importa Toast
+
 // Styles
 import { NativeWindStyleSheet } from "nativewind";
 
@@ -23,24 +26,26 @@ NativeWindStyleSheet.setOutput({
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return (  
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+          {/* Rutas protegidas */}
+          <Stack.Screen name="ProtectedRoutes" component={ProtectedRoutes} />
+        </Stack.Navigator>
 
-      <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Login"
-            screenOptions={{ headerShown: false }}
-          >
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-            {/* Rutas protegidas */}
-            <Stack.Screen name="ProtectedRoutes" component={ProtectedRoutes} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
+        {/* Componente Toast global */}
+        <Toast />
+      </NavigationContainer>
+    </Provider>
   );
 }
- 
+
 const ProtectedRoutes = () => {
   return (
     <VerifyAccess>

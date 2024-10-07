@@ -1,19 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import Animated, {
-  BounceIn,
-  BounceOut,
-  FadeInDown,
-  FadeInUp,
-  LightSpeedInRight,
-  StretchInX,
-} from "react-native-reanimated";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import logo from "../../assets/logo.png";
 import From1 from "../sections/Register/From1";
 import { useSelector } from "react-redux";
 import Form2 from "../sections/Register/Form2";
-import { AntDesign } from "@expo/vector-icons";
 export default function Register() {
   const navigation = useNavigation();
   const currentStep = useSelector((state) => state.register.step);

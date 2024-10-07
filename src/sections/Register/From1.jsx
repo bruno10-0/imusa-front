@@ -20,7 +20,7 @@ export default function Form1() {
     <View className="w-full h-auto">
       <Formik
         initialValues={{
-          nombre: useSelector((state) => state.register.data.nombre),
+          nombre: useSelector((state) => state.register.nombre),
         }}
         validationSchema={step1}
         onSubmit={handleSubmit}
